@@ -1,4 +1,5 @@
 import SpaceInvadersConfig from "../config/SpaceInvadersConfig.js" 
+import { detectColision } from '/src/utils/utils.js'
 
 export default {
     addEventListeners() {
@@ -16,20 +17,32 @@ export default {
         //////////////////////////
 
         setInterval( _ => {
-            const { gameHeight, shipHeight } = SpaceInvadersConfig
-            const { y: topDistance, height: containerHeight } = this.invadersContainer.getBoundingClientRect()
-        
-            if ( 
-                gameHeight - shipHeight <
-                topDistance + containerHeight
-            ) {
+            if ( detectColision( this.shipElement, this.invadersContainer ) ) {
                 console.log( 'game over' )
                 this.invadersContainer.classList.remove( 'invaders-container-animation' )
                 this.invadersContainer.style.display = 'none'
             }
         }, 10)
     },
-    handleSpaceMoveUp() { },
-    handleSpaceMoveLeft() { },
-    handleSpaceMoveRight() { },
+    handleSpaceMoveUp() { 
+        
+    },
+    handleSpaceMoveLeft() { 
+        const { x: containerX } = this.containerElement.getBoundingClientRect()
+        const { x: shipX } =this.shipElement.getBoundingClientRect()
+        
+        const shipStyleLeft = shipX - containerX
+        
+        if ( shipStyleLeft < 18 ) return
+        this.shipElement.style.left = `${ shipStyleLeft - 20 }px`
+    },
+    handleSpaceMoveRight() { 
+        const { x: containerX } = this.containerElement.getBoundingClientRect()
+        const { x: shipX } =this.shipElement.getBoundingClientRect()
+        
+        const shipStyleLeft = shipX - containerX
+        
+        if ( shipStyleLeft > 300 ) return
+        this.shipElement.style.left = `${ shipStyleLeft + 20 }px`
+    },
 }

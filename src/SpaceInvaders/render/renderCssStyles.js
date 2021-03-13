@@ -2,20 +2,23 @@ import SpaceInvadersConfig from "../config/SpaceInvadersConfig.js"
 
 export default {
     renderCssStyles() {
+        const { targetElementSelector } = this
+        const { backgroundImage, gameWidth, gameHeight, invadersContainerWidth, gameDificulty, playerEnemyDimension } = SpaceInvadersConfig
+
         const styleContent = `
-            ${ this.targetElementSelector } .game-container {
-                background: url( ${ SpaceInvadersConfig.backgroundImage } );
+            ${ targetElementSelector } .game-container {
+                background: url( ${ backgroundImage } );
                 background-size: contain;
                 position: absolute;
                 top: 10px;
                 left: 10px;
-                width: ${ SpaceInvadersConfig.gameWidth }px;
-                height: ${ SpaceInvadersConfig.gameHeight }px;
+                width: ${ gameWidth }px;
+                height: ${ gameHeight }px;
                 border: 2px solid #000;
             }
 
-            ${ this.targetElementSelector } .invaders-container {
-                width: ${ SpaceInvadersConfig.invadersContainerWidth }px;
+            ${ targetElementSelector } .invaders-container {
+                width: ${ invadersContainerWidth }px;
                 display: flex;
                 flex-wrap: wrap;
                 position: absolute;
@@ -23,30 +26,40 @@ export default {
                 justify-content: center;
             }
 
-            ${ this.targetElementSelector } .invaders-container .invader {
-                width: 30px;
-                height: 30px;
+            ${ targetElementSelector } .invaders-container .invader {
+                width: ${ playerEnemyDimension }px;
+                height: ${ playerEnemyDimension }px;
                 margin: 2.5px;
                 background: pink;
                 border-radius: 50%;
+            }
+
+            ${ targetElementSelector } .game-container .spaceship {
+                width: ${ playerEnemyDimension }px;
+                height: ${ playerEnemyDimension }px;
+                background: red;
+                border-radius: 50%;
+                position: relative;
+                top: ${ gameHeight - playerEnemyDimension * 2 }px;
+                left: ${ gameWidth / 2 - playerEnemyDimension / 2  }px;
             }
 
             /********************************************/
 
             .invaders-container-animation {
                 animation: invadersContainerAnimationHorizontal, invadersContainerAnimationVertical;
-                animation-duration: ${ SpaceInvadersConfig.gameDificulty }s, ${ SpaceInvadersConfig.gameDificulty * 30 }s;
+                animation-duration: ${ gameDificulty }s, ${ gameDificulty * 30 }s;
                 animation-iteration-count: infinite;
                 animation-fill-mode: both, forwards;
             }
             @keyframes invadersContainerAnimationHorizontal {
                 0% { left: 0; }
-                50% { left: ${ SpaceInvadersConfig.gameWidth - SpaceInvadersConfig.invadersContainerWidth }px }
+                50% { left: ${ gameWidth - invadersContainerWidth }px }
                 100% { left: 0; }
             }
             @keyframes invadersContainerAnimationVertical {
                 0% { top: 0; }
-                100% { top: ${ SpaceInvadersConfig.gameHeight }px }
+                100% { top: ${ gameHeight }px }
             }
         `
 

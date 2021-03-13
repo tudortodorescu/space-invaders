@@ -8,6 +8,6 @@ export default {
     faviconImage: `${ AppConfig.imageFolder }/favicon.png`,
     numberOfInvaders: 20,
     invadersContainerWidth: 250,
-    shipHeight: 30,
+    playerEnemyDimension: 30,
     gameDificulty: 1 /** 5 easiest | 1 hardest */
 }

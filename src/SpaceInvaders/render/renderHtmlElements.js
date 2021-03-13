@@ -41,5 +41,11 @@ export default {
             this.invadersContainer.style.animationDirection = reverseIt ? 'alternate, normal' : 'alternate-reverse, normal'
         }, (SpaceInvadersConfig.gameDificulty * 1000) / 2)
     },
-    renderShip() {},
+    renderShip() {
+        const shipElement = document.createElement( 'div' )
+        shipElement.classList.add( ...[ 'spaceship', 'js_spaceship' ])
+
+        this.shipElement = shipElement
+        this.containerElement.append( shipElement )
+    },
 }
